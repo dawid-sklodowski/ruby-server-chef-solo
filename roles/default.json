@@ -2,6 +2,7 @@
   "name": "default",
   "run_list": [
     "utilities",
+    "ruby_build",
     "rbenv::user"
   ],
   "rbenv": {
