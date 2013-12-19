@@ -1,0 +1,15 @@
+{
+  "name": "default",
+  "run_list": [
+    "utilities",
+    "rbenv::user"
+  ],
+  "rbenv": {
+    "user_installs": [
+      {
+        "user": "dave",
+        "rubies": ["2.0.0-p353"]
+      }
+    ]  
+  }
+}
