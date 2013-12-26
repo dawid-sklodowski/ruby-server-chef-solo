@@ -1,0 +1,58 @@
+#!/bin/sh
+#
+# Manage an instance of God for the deploy user
+#
+### BEGIN INIT INFO
+# Provides:          god
+# Required-Start:    $remote_fs $syslog $named $all
+# Required-Stop:     $remote_fs $syslog $named $all
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start God daemon at boot time
+# Description:       Enable God service provided by god gem.
+### END INIT INFO
+#
+GOD_PATH=/home/deploy/.rbenv/shims/god
+GOD_PID=/var/run/god.pid
+GOD_LOG=/var/log/god.log
+GOD_UID=deploy:deploy
+GOD_CONFIGS=/home/deploy/*/current/config/*.god
+. /etc/init.d/functions
+
+wait_for_god() {
+retries=10
+while test $retries -gt 0 ; do
+$GOD_PATH status && return
+sleep 1
+retries=$(( $retries - 1 ))
+done
+}
+
+# clean up god permissions
+for path in $GOD_PID $GOD_LOG ; do
+touch $path
+chown $GOD_UID $path
+done
+
+# start/stop God
+case $1 in
+start)
+su git -c "cd && $GOD_PATH && $GOD_PATH load $GOD_CONFIGS"
+;;
+stop)
+su git -c "cd && $GOD_PATH terminate"
+;;
+restart)
+$0 stop && $0 start
+;;
+esac
+
+# load god configs
+case $1 in
+start)
+for config in $GOD_CONFIGS ; do
+wait_for_god
+$GOD_PATH load $config
+done
+;;
+esac
