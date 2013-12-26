@@ -8,6 +8,9 @@ service 'mongodb' do
   action :restart
 end
 
+group 'deploy' do
+  action :create
+end
 
 user 'deploy' do
   supports :manage_home => true
