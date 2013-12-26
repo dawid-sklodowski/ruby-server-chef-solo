@@ -1,0 +1,3 @@
+[submodule "cookbooks/chef-rbenv"]
+	path = cookbooks/chef-rbenv
+	url = https://github.com/fnichol/chef-rbenv.git
