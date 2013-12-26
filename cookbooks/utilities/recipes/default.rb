@@ -20,3 +20,18 @@ user 'deploy' do
   shell "/bin/bash"
   action :create
 end
+
+directory "/home/deploy/.ssh" do
+  owner "deploy"
+  group "deploy"
+  mode 00644
+  action :create
+end
+
+file "/home/deploy/.ssh/authorized_keys2" do
+  owner "deploy"
+  group "deploy"
+  mode 0644
+  content File.read('/root/.ssh/authorized_keys2')
+  action :create
+end
