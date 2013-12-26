@@ -8,7 +8,7 @@
   "rbenv": {
     "user_installs": [
       {
-        "user": "dave",
+        "user": "deploy",
         "rubies": ["2.0.0-p353"]
       }
     ]  
