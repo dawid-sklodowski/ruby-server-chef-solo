@@ -12,12 +12,11 @@
 # Description:       Enable God service provided by god gem.
 ### END INIT INFO
 #
-GOD_PATH=/home/deploy/.rbenv/shims/god
+GOD_PATH=$(which god)
 GOD_PID=/var/run/god.pid
 GOD_LOG=/var/log/god.log
 GOD_UID=deploy:deploy
 GOD_CONFIGS=/home/deploy/*/current/config/*.god
-. /etc/init.d/functions
 
 wait_for_god() {
 retries=10

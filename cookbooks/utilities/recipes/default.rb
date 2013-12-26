@@ -47,7 +47,7 @@ file '/etc/init.d/god' do
   owner "root"
   group "root"
   mode 0755
-  content (Pathname.new(File.expand_path(__FILE__)) + '..' + '..' + 'templates' + 'god').read
+  content (Pathname.new(File.expand_path(__FILE__)) + '..' + '..':Q + 'templates' + 'god').read
 end
 
 service 'god' do
