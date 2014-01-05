@@ -40,21 +40,18 @@ file "/home/deploy/.ssh/authorized_keys2" do
   action :create
 end
 
-gem_package 'bundler'
-gem_package 'god'
-
 file '/etc/init.d/god' do
   owner "root"
   group "root"
   mode 0755
-  content (Pathname.new(File.expand_path(__FILE__)) + '..' + '..':Q + 'templates' + 'god').read
+  content (Pathname.new(File.expand_path(__FILE__)) + '..' + '..' + 'templates' + 'god').read
 end
 
-service 'god' do
-  init_command '/etc/init.d/god'
-  supports :start => true, :restart => true, :stop => true
-  action [:enable, :start]
-  start_command '/etc/init.d/god start'
-  restart_command '/etc/init.d/god restart'
-  stop_command '/etc/init.d/god stop'
-end
+#service 'god' do
+#  init_command '/etc/init.d/god'
+#  supports :start => true, :restart => true, :stop => true
+#  action [:enable, :start]
+#  start_command '/etc/init.d/god start'
+#  restart_command '/etc/init.d/god restart'
+#  stop_command '/etc/init.d/god stop'
+#end
